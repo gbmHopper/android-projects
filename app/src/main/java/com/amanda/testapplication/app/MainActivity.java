@@ -1,6 +1,7 @@
 package com.amanda.testapplication.app;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +25,13 @@ public class MainActivity extends Activity {
 
     public void buttonClick(View view) {
         increment++;
-        text.setText(increment+"");
+        SharedPreferences incrementCount = getPreferences(MODE_PRIVATE);
+        int incCount = incrementCount.getInt("com.amanda.testapplication.incCount", 0);
+        text.setText(incCount);
 
+        SharedPreferences.Editor editor = incrementCount.edit();
+        editor.putInt("com.amanda.testapplication.intCount" , increment);
+
+        editor.commit();
     }
 }

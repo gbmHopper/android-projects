@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-    private int increment = 0;
+    public static final String KEY = "com.amanda.testapplication.incCount";
     private TextView text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,17 +21,20 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         text = (TextView) findViewById(R.id.display);
+
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        int incCount = sharedPreferences.getInt(KEY,0 );
+        text.setText(incCount+"");
+
     }
 
     public void buttonClick(View view) {
-        increment++;
-        SharedPreferences incrementCount = getPreferences(MODE_PRIVATE);
-        int incCount = incrementCount.getInt("com.amanda.testapplication.incCount", 0);
-        text.setText(incCount);
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
 
-        SharedPreferences.Editor editor = incrementCount.edit();
-        editor.putInt("com.amanda.testapplication.intCount" , increment);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(KEY,sharedPreferences.getInt(KEY, 0) + 1 );
 
+        text.setText(String.format("The current count is %d", sharedPreferences.getInt(KEY, 0)));
         editor.commit();
     }
 }

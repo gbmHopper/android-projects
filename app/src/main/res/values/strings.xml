@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Number Incrementer</string>
+    <string name="display">Display</string>
+    <string name="button">Button</string>
+</resources>
